@@ -15,9 +15,8 @@ specification.
 
 ## Installation
 
-You will need to install [sox](http://sox.sourceforge.net/) for using this.
-
-`pip install git+https://github.com/Vernacular-ai/tts-middleware.git`
+- Install [sox](http://sox.sourceforge.net/).
+- TODO: Package setup.
 
 ## Usage
 
