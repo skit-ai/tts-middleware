@@ -6,8 +6,8 @@ output audio, module for our speech synthesis systems.
 ## Supported SSML tags
 
 Many common tags are assumed implicitly. Read
-[this](https://www.w3.org/TR/speech-synthesis/) for overview of SSML
-specifications.
+[this](https://www.w3.org/TR/speech-synthesis/) for an overview of SSML
+specification.
 
 + Sentence level `<prosody>` with `rate` and `volume` attribute, supporting
   percentage descriptors.
