@@ -2,8 +2,7 @@
 
 ![tag](https://img.shields.io/github/v/tag/Vernacular-ai/tts-middleware.svg?style=flat-square) ![ci](https://img.shields.io/github/workflow/status/Vernacular-ai/tts-middleware/CI.svg?style=flat-square)
 
-`tts-middleware` is the pre-processing, for input text, and post-processing, for
-output audio, module for our speech synthesis systems.
+Middleware module for our speech synthesis systems.
 
 ## Supported SSML tags
 
