@@ -21,6 +21,21 @@ specification.
 
 ## Usage
 
+For full featured inference, simply wrap your TTS function (text to audio) with
+the decorator like this:
+
+```python
+from tts_middleware.core import tts_middleware
+import numpy as np
+
+@tts_middleware
+def tts(text: str) -> np.ndarray:
+    # Do requests and return audio
+    ...
+
+# Now calls to `tts` will support SSML with all features enabled.
+```
+
 There are three major components here, all of which can be used in isolation.
 
 ### `tts_middleware.normalizer`
