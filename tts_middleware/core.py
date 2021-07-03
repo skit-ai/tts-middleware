@@ -1,8 +1,13 @@
 from functools import wraps
+from typing import Tuple
 
+import numpy as np
 from pyquery import PyQuery as pq
 
 from tts_middleware.audio import transform_rate
+
+# Data array and sample rate
+Audio = Tuple[np.ndarray, int]
 
 
 def tts_middleware(tts_function):
@@ -11,7 +16,7 @@ def tts_middleware(tts_function):
     """
 
     @wraps(tts_function)
-    def _tts(text: str):
+    def _tts(text: str) -> Audio:
         node = pq(text)
         raw_text = node.text()
 
@@ -20,12 +25,10 @@ def tts_middleware(tts_function):
             if node("prosody").attr.rate:
                 rate = float(node("prosody").attr.rate)
 
-        output = tts_function(raw_text)
+        y, sr = tts_function(raw_text)
 
         if rate is not None:
-            # TODO: Remove assumption about sample rate
-            sample_rate = 8000
-            return transform_rate(output, sample_rate, 1.1)
-        return output
+            return transform_rate(y, sr, 1.1), sr
+        return y, sr
 
     return _tts

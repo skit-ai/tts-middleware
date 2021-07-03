@@ -25,11 +25,11 @@ For full featured inference, simply wrap your TTS function (text to audio) with
 the decorator like this:
 
 ```python
-from tts_middleware.core import tts_middleware
+from tts_middleware.core import tts_middleware, Audio
 import numpy as np
 
 @tts_middleware
-def tts(text: str) -> np.ndarray:
+def tts(text: str) -> Audio:
     # Do requests and return audio
     ...
 
@@ -46,7 +46,7 @@ supported at the moment, so this only touches raw text.
 ### `tts_middleware.phonemizer`
 For converting normalized and `<phoneme>` marked text in phone symbols. This can
 be used independently for pre-processing training data too.
-   
+
 ### `tts_middleware.audio`
 For applying signal level post processing steps (mostly `rate` and `volume`
 attributes) on generated audios.
