@@ -1,12 +1,13 @@
 [tool.poetry]
 name = "tts-middleware"
-version = "0.1.1"
+version = "0.1.2"
 description = ""
 authors = ["Abhinav Tushar <abhinav@lepisma.xyz>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
 sox = "^1.4.1"
+pyquery = "^1.4.3"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
