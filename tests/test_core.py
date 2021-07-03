@@ -11,7 +11,7 @@ def tts_fn(text: str) -> Audio:
 def test_ssml_rate():
     rate = 1.1
     raw = "Please keep promises, don't hurt people."
-    ssml = f"<prosody rate={rate}>Please keep promises, don't hurt people.</prosody>"
+    ssml = f"<prosody rate='{rate}'>Please keep promises, don't hurt people.</prosody>"
 
     y, sr = tts_fn(raw)
 
