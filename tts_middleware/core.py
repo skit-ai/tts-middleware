@@ -28,7 +28,7 @@ def tts_middleware(tts_function):
         y, sr = tts_function(raw_text)
 
         if rate is not None:
-            return transform_rate(y, sr, 1.1), sr
+            return transform_rate(y, sr, rate), sr
         return y, sr
 
     return _tts
