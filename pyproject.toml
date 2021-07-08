@@ -11,6 +11,9 @@ pyquery = "^1.4.3"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
+streamlit = "^0.84.0"
+pyttsx3 = "^2.90"
+librosa = "^0.8.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
