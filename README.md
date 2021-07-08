@@ -1,6 +1,6 @@
 # tts-middleware
 
-![tag](https://img.shields.io/github/v/tag/Vernacular-ai/tts-middleware.svg?style=flat-square) ![ci](https://img.shields.io/github/workflow/status/Vernacular-ai/tts-middleware/CI.svg?style=flat-square)
+![PyPI](https://img.shields.io/pypi/v/tts-middleware?style=flat-square) ![tag](https://img.shields.io/github/v/tag/Vernacular-ai/tts-middleware.svg?style=flat-square) ![ci](https://img.shields.io/github/workflow/status/Vernacular-ai/tts-middleware/CI.svg?style=flat-square)
 
 Middleware module for our speech synthesis systems.
 
@@ -10,14 +10,13 @@ Many common tags are assumed implicitly. Read
 [this](https://www.w3.org/TR/speech-synthesis/) for an overview of SSML
 specification.
 
-+ Sentence level `<prosody>` with `rate`, `pitch`, and `volume` attributes,
-  supporting floating point descriptors.
++ Sentence level `<prosody>` with `rate`, `pitch`, and `volume` attributes.
 + `<phoneme>` with `ipa` attribute.
 
 ## Installation
 
 - Install [sox](http://sox.sourceforge.net/).
-- TODO: Package setup.
+- `pip install tts-middleware`
 
 ## Usage
 
@@ -34,6 +33,26 @@ def tts(text: str) -> Audio:
     ...
 
 # Now calls to `tts` will support SSML with all features enabled.
+```
+
+Attributes for SSML tags are described next:
+
+1. `<prosody rate='1.3'>hello world</prosody>`.
+2. `<prosody pitch='2'>hello world</prosody>`. Parameter is number of semitones
+   as described in pysox
+   [here](https://pysox.readthedocs.io/en/latest/api.html#sox.transform.Transformer.pitch).
+3. `<prosody volume='10'>hello world</prosody>`. Parameter is gains in db
+   similar to pysox
+   [here](https://pysox.readthedocs.io/en/latest/api.html#sox.transform.Transformer.loudness).
+
+There is a [streamlit](https://streamlit.io/) app which you can use to try the
+API by doing the following:
+
+```
+# You need to install espeak for this.
+
+poetry install
+poetry run streamlit run ./examples/app.py
 ```
 
 There are three major components here, all of which can be used in isolation.
