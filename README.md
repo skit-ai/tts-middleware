@@ -28,7 +28,7 @@ from tts_middleware.core import tts_middleware, Audio
 import numpy as np
 
 @tts_middleware
-def tts(text: str) -> Audio:
+def tts(text: str, language_code: str) -> Audio:
     # Do requests and return audio
     ...
 

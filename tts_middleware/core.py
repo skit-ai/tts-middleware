@@ -17,11 +17,11 @@ def tts_middleware(tts_function):
     """
 
     @wraps(tts_function)
-    def _tts(text: str) -> Audio:
+    def _tts(text: str, language_code: str) -> Audio:
         node = pq(text)
         raw_text = node.text()
 
-        y, sr = tts_function(raw_text)
+        y, sr = tts_function(raw_text, language_code)
 
         if node("prosody"):
             if node("prosody").attr.pitch:
