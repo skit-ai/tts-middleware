@@ -4,8 +4,7 @@ from typing import Tuple
 import numpy as np
 from pyquery import PyQuery as pq
 
-from tts_middleware.audio import (transform_pitch, transform_rate,
-                                  transform_volume)
+from tts_middleware.audio import transform_pitch, transform_rate, transform_volume
 
 # Data array and sample rate
 Audio = Tuple[np.ndarray, int]
@@ -21,7 +20,7 @@ def tts_middleware(tts_function):
         node = pq(text)
         raw_text = node.text()
 
-        y, sr = tts_function(raw_text, language_code)
+        y, sr = tts_function(raw_text, language_code, voice=node("prosody").attr.voice)
 
         if node("prosody"):
             if node("prosody").attr.pitch:
