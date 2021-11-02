@@ -2,7 +2,7 @@
 name = "tts-middleware"
 version = "0.4.0"
 description = ""
-authors = ["Abhinav Tushar <abhinav@lepisma.xyz>"]
+authors = ["Abhinav Tushar <abhinav@lepisma.xyz>", "Ayush Shridhar <ayush.shridhar1506@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.7"
