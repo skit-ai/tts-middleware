@@ -44,6 +44,8 @@ Attributes for SSML tags are described next:
 3. `<prosody volume='10'>hello world</prosody>`. Parameter is gains in db
    similar to pysox
    [here](https://pysox.readthedocs.io/en/latest/api.html#sox.transform.Transformer.loudness).
+4. `<voice gender="female" name="excited"> hello world! </voice>`. [`Voice` element](https://www.w3.org/TR/speech-synthesis11/#S3.2.1) supports two attributes:
+    `gender` and `name`.
 
 There is a [streamlit](https://streamlit.io/) app which you can use to try the
 API by doing the following:
