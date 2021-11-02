@@ -1,4 +1,5 @@
 import numpy as np
+
 from tts_middleware.core import Audio, tts_middleware
 
 
