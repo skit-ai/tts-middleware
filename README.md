@@ -12,6 +12,7 @@ specification.
 
 + Sentence level `<prosody>` with `rate`, `pitch`, and `volume` attributes.
 + `<phoneme>` with `ipa` attribute.
++ `<voice>` with `gender` and `name` attribute.
 
 ## Installation
 
