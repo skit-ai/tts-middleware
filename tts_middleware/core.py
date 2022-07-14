@@ -11,6 +11,12 @@ from tts_middleware.elements import _get_preprocessing_attributes
 # Data array and sample rate
 Audio = Tuple[np.ndarray, int]
 
+def gtts_to_vtts(pitch, rate):
+    if (pitch): 
+        pitch = 1+float(pitch.strip("%"))/100
+    if (rate):
+        rate = float(rate.strip("%"))/100
+    return pitch, rate
 
 def tts_middleware(tts_function):
     """
@@ -18,7 +24,7 @@ def tts_middleware(tts_function):
     """
 
     @wraps(tts_function)
-    def _tts(text: str, language_code: str) -> Audio:
+    def _tts(text: str, language_code: str, tts_service: str) -> Audio:
         node = pq(text)
         raw_text = node.text()
         y, sr = tts_function(
@@ -30,10 +36,14 @@ def tts_middleware(tts_function):
         if node("prosody"):
             if node("prosody").attr.pitch:
                 n_semitones = float(node("prosody").attr.pitch)
+                if (tts_service == "gtts"):
+                    n_semitones, _ = gtts_to_vtts(node("prosody").attr.pitch, None)
                 y = transform_pitch(y, sr, n_semitones)
 
             if node("prosody").attr.rate:
                 rate = float(node("prosody").attr.rate)
+                if (tts_service == "gtts"):
+                    _, rate = gtts_to_vtts(None, node("prosody").attr.rate)
                 y = transform_rate(y, sr, rate)
 
             if node("prosody").attr.volume:
