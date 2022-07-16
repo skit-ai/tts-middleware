@@ -2,6 +2,8 @@ from functools import wraps
 from typing import Tuple
 from indictrans import Transliterator
 import re
+from itertools import repeat
+from google.transliteration import transliterate_text
 
 import numpy as np
 from pyquery import PyQuery as pq
@@ -14,17 +16,15 @@ from tts_middleware.elements import _get_preprocessing_attributes
 Audio = Tuple[np.ndarray, int]
 
 
-def transliteration(text, lang_code):
+def eng_to_hin(word, lang_code):
     reg = re.compile(r'[a-zA-Z]')
-    trans = Transliterator(source='eng', target=lang_code, build_lookup=True)
-    trans_text = ""
-    for word in text.split(" "):
-        if word not in '[@_!#$%^&*()<>?/\|}{~:]' and reg.match(word):
-            trans_text += f'{trans.transform(word)} '
-        else: 
-            trans_text += f'{word} '
-    
-    return trans_text
+    if word not in '[@_!#$%^&*()<>?/\|}{~:]' and reg.match(word):
+        return transliterate_text(word, lang_code)
+    return word
+
+def transliteration(text, lang_code):
+    trans_arr = list(map(eng_to_hin, text.split(" "), repeat(lang_code)))   
+    return (" ".join(trans_arr))
 
 def tts_middleware(tts_function):
     """
@@ -35,7 +35,7 @@ def tts_middleware(tts_function):
     def _tts(text: str, language_code: str, transliterate: bool) -> Audio:
         node = pq(text)
         raw_text = node.text()
-        if transliterate and language_code == 'hin':
+        if transliterate and language_code == 'hi':
             raw_text = transliteration(raw_text, language_code)
 
         y, sr = tts_function(
