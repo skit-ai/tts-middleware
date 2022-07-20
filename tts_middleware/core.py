@@ -1,9 +1,5 @@
 from functools import wraps
 from typing import Tuple
-from indictrans import Transliterator
-import re
-from itertools import repeat
-from google.transliteration import transliterate_text
 
 import numpy as np
 from pyquery import PyQuery as pq
@@ -11,20 +7,10 @@ from pyquery import PyQuery as pq
 from tts_middleware.audio import (transform_pitch, transform_rate,
                                   transform_volume)
 from tts_middleware.elements import _get_preprocessing_attributes
+from tts_middleware.text import transliteration
 
 # Data array and sample rate
 Audio = Tuple[np.ndarray, int]
-
-
-def eng_to_hin(word, lang_code):
-    reg = re.compile(r'[a-zA-Z]')
-    if word not in '[@_!#$%^&*()<>?/\|}{~:]' and reg.match(word):
-        return transliterate_text(word, lang_code)
-    return word
-
-def transliteration(text, lang_code):
-    trans_arr = list(map(eng_to_hin, text.split(" "), repeat(lang_code)))   
-    return (" ".join(trans_arr))
 
 def tts_middleware(tts_function):
     """
