@@ -4,6 +4,7 @@ from typing import Tuple
 import numpy as np
 from pyquery import PyQuery as pq
 
+from num_to_words.num_to_words import num_to_word
 from tts_middleware.audio import (transform_pitch, transform_rate,
                                   transform_volume)
 from tts_middleware.elements import _get_preprocessing_attributes
@@ -11,6 +12,15 @@ from tts_middleware.elements import _get_preprocessing_attributes
 # Data array and sample rate
 Audio = Tuple[np.ndarray, int]
 
+def num2text(text):
+    num2word_equ = ""
+    for word in text.split(" "):
+        if word.isnumeric():
+            num2word_equ += f'{num_to_word(word, "hi")} '
+        else:
+            num2word_equ += f'{word} '
+    
+    return num2word_equ
 
 def tts_middleware(tts_function):
     """
@@ -21,8 +31,9 @@ def tts_middleware(tts_function):
     def _tts(text: str, language_code: str) -> Audio:
         node = pq(text)
         raw_text = node.text()
+        prep_text = num2text(raw_text)
         y, sr = tts_function(
-            raw_text,
+            prep_text,
             language_code,
             voice=_get_preprocessing_attributes(node, element="voice"),
         )
