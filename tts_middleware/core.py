@@ -4,12 +4,23 @@ from typing import Tuple
 import numpy as np
 from pyquery import PyQuery as pq
 
+from num_to_words.num_to_words import num_to_word
 from tts_middleware.audio import (transform_pitch, transform_rate,
                                   transform_volume)
 from tts_middleware.text import transliteration
 
 # Data array and sample rate
 Audio = Tuple[np.ndarray, int]
+
+def num2text(text):
+    num2word_equ = ""
+    for word in text.split(" "):
+        if word.isnumeric():
+            num2word_equ += f'{num_to_word(word, "hi")} '
+        else:
+            num2word_equ += f'{word} '
+    
+    return num2word_equ
 
 def tts_middleware(tts_function):
     """
@@ -25,9 +36,10 @@ def tts_middleware(tts_function):
         if transliterate and language_code in ["hi"]:
             raw_text = transliteration(raw_text, language_code)
 
+        prep_text = num2text(raw_text)
         # TTS function call
         y, sr = tts_function(
-            raw_text,
+            prep_text,
             language_code,
         )
 
