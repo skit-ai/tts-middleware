@@ -20,7 +20,7 @@ def num2text(text):
         else:
             num2word_equ += f'{word} '
     
-    return num2word_equ
+    return num2word_equ.strip(" ")
 
 def tts_middleware(tts_function):
     """
