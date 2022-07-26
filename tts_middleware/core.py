@@ -16,7 +16,7 @@ def gtts_to_vtts(pitch, rate):
         pitch = 1+float(pitch.strip("%"))/100
     if (rate and "%" in rate):
         rate = float(rate.strip("%"))/100
-    return pitch, rate
+    return float(pitch), float(rate)
 
 def tts_middleware(tts_function):
     """
