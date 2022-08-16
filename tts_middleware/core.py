@@ -7,20 +7,10 @@ from pyquery import PyQuery as pq
 from num_to_words.num_to_words import num_to_word
 from tts_middleware.audio import (transform_pitch, transform_rate,
                                   transform_volume)
-from tts_middleware.text import transliteration
+from tts_middleware.text import transliteration, num2text
 
 # Data array and sample rate
 Audio = Tuple[np.ndarray, int]
-
-def num2text(text):
-    num2word_equ = ""
-    for word in text.split(" "):
-        if word.isnumeric():
-            num2word_equ += f'{num_to_word(word, "hi")} '
-        else:
-            num2word_equ += f'{word} '
-    
-    return num2word_equ.strip(" ")
 
 def tts_middleware(tts_function):
     """
