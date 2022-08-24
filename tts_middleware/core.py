@@ -4,7 +4,7 @@ from typing import Tuple
 import numpy as np
 from pyquery import PyQuery as pq
 
-from num_to_words.num_to_word import num_to_word
+
 from tts_middleware.audio import (transform_pitch, transform_rate,
                                   transform_volume)
 from tts_middleware.preprocess_text import preprocess_text #transliteration, num2text
@@ -24,11 +24,7 @@ def tts_middleware(tts_function):
 
         # Text preprocessing
         prep_text = preprocess_text(raw_text, transliterate = transliterate, language_code=language_code)
-        # if transliterate and language_code in ["hi"]:
-        #     raw_text = transliteration(raw_text, language_code)
 
-        # prep_text = num2text(raw_text)
-        # TTS function call
         y, sr = tts_function(
             prep_text,
             language_code,
