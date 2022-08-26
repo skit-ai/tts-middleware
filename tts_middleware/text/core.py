@@ -4,17 +4,21 @@ from itertools import repeat
 from concurrent.futures import ThreadPoolExecutor
 
 from tts_middleware.text.num2word import process
+from tts_middleware.text.alter_word import alter_spelling
 
 
 def preprocess_text(text, **kwargs):
     transliterate = kwargs["transliterate"]
     language_code = kwargs["language_code"]
+    tts_agent = kwargs["tts_agent"]
     final_text = text
-    if language_code == "hi":
-        sub_sent = re.sub(r',', " , ", text)
-        sub_sent = re.sub(r'\?', " ? ", sub_sent)
-        sub_sent = re.sub(r'।', " । ", sub_sent)
-        sub_sent = re.sub(r'!', " ! ", sub_sent)
+    sub_sent = re.sub(r',', " , ", text)
+    
+    sub_sent = re.sub(r'\?', " ? ", sub_sent)
+    sub_sent = re.sub(r'।', " । ", sub_sent)
+    sub_sent = re.sub(r'!', " ! ", sub_sent)
+    
+    if language_code == "hi":      
         sub_sent = re.sub(r'\|', " । ", sub_sent)
 
         with ThreadPoolExecutor(max_workers=8) as executor:
@@ -24,6 +28,21 @@ def preprocess_text(text, **kwargs):
         sent_ending = r'[\?।|!]'
         if not re.match(sent_ending, final_text[-1]):
             final_text += ' ।'
+
+    elif language_code == "en":
+        sub_sent = re.sub(r'\|', " | ", sub_sent)
+        sub_sent = re.sub(r'\.', " . ", sub_sent)
+
+        with ThreadPoolExecutor(max_workers=8) as executor:
+            inter_text = list(executor.map(alter_spelling, sub_sent.split(" "), repeat(tts_agent)))   
+        final_text = " ".join(inter_text).strip()
+
+    else:
+        final_text = sub_sent
+    
     final_text = re.compile(r"\s+").sub(" ", final_text).strip()
 
     return final_text
+
+# print(preprocess_text("Kindly tell me, which service do you wish to deactivate for ICICI prepaid card? 3D, E-commerce, ATM or POS transactions ? I will assist with any query or send to IVR .", transliterate=False, language_code="en", tts_agent = "vaanya"))
+# print(preprocess_text("समझ गई। आपकी check in date 2022-09-10. कर दी गई है। क्या आप कोई और detail और बदलना चाहते हैं ?", transliterate=True, language_code="hi", tts_agent="ayushi"))
