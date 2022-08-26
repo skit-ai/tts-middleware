@@ -3,7 +3,7 @@ import operator as op
 import numpy as np
 import pytest
 
-from tts_middleware.audio import transform_rate, transform_volume
+from tts_middleware.audio.prosody import transform_rate, transform_volume
 
 
 @pytest.mark.parametrize(
