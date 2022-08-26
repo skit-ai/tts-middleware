@@ -10,9 +10,9 @@ Use cases:-
 check indic_numbers.py to add support
 for any indian language
 """
-from tts_middleware.num_to_words.indic_numbers import supported_lang
-from tts_middleware.num_to_words.indic_numbers import all_num
-from tts_middleware.num_to_words.indic_numbers import num_dict
+from tts_middleware.text.num_to_words.indic_numbers import supported_lang
+from tts_middleware.text.num_to_words.indic_numbers import all_num
+from tts_middleware.text.num_to_words.indic_numbers import num_dict
 
 
 def language_specific_exception(words, lang, combiner):
