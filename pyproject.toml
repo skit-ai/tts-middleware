@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "tts-middleware"
-version = "0.5.0"
+version = "0.6.0"
 description = ""
 authors = ["Abhinav Tushar <abhinav@lepisma.xyz>", "Ayush Shridhar <ayush.shridhar1506@gmail.com>"]
 
