@@ -1,16 +1,16 @@
-from functools import wraps
-from typing import Tuple
-
 import numpy as np
+
+from typing import Tuple
+from functools import wraps
 from pyquery import PyQuery as pq
 
+from tts_middleware.text import preprocess_text
+from tts_middleware.audio import postprocess_audio
 
-from tts_middleware.audio import (transform_pitch, transform_rate,
-                                  transform_volume)
-from tts_middleware.preprocess_text import preprocess_text #transliteration, num2text
 
 # Data array and sample rate
 Audio = Tuple[np.ndarray, int]
+
 
 def tts_middleware(tts_function):
     """
@@ -20,30 +20,19 @@ def tts_middleware(tts_function):
     @wraps(tts_function)
     def _tts(text: str, language_code: str, transliterate: bool=False) -> Audio:
         node = pq(text)
-        raw_text = node.text()
+        text = node.text()
 
         # Text preprocessing
-        prep_text = preprocess_text(raw_text, transliterate = transliterate, language_code=language_code)
+        text = preprocess_text(text, transliterate=transliterate, language_code=language_code)
 
-        y, sr = tts_function(
-            prep_text,
+        audio, sr = tts_function(
+            text,
             language_code,
         )
 
         # Audio postprocessing
-        if node("prosody"):
-            if node("prosody").attr.pitch:
-                n_semitones = float(node("prosody").attr.pitch)
-                y = transform_pitch(y, sr, n_semitones)
+        audio = postprocess_audio(audio, sr, node("prosody"))
 
-            if node("prosody").attr.rate:
-                rate = float(node("prosody").attr.rate)
-                y = transform_rate(y, sr, rate)
-
-            if node("prosody").attr.volume:
-                gain_db = float(node("prosody").attr.volume)
-                y = transform_volume(y, sr, gain_db)
-
-        return y, sr
+        return audio, sr
 
     return _tts
