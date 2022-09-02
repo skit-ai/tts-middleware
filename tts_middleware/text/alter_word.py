@@ -11,13 +11,31 @@ ENG_SPELL_MAP_VAANYA = {"query": "qvery",
     "kindly" : "kind lee",
     "assist" : "essist",
     "icici" : "eyeicy eyeicy eye",
-    "prepaid": "pre paid"
+    "prepaid": "pre paid",
+    "s" : "ess",
+    "p" : "pee",
+    "c" : "see",
+    "d" : "dee"
     }
 
-def alter_spelling(word, tts_agent):
+AYUSHI_WORD_MAPPING = {"pos" : "पी ओ एस",
+    "atm": "एटीयम",
+    "e-commerce" : "इ कौमर्स",
+    "3d" : "थ्री डी",
+    "secure" : "सिक्योर",
+    "service":"सर्विस",
+    "transaction" : "ट्रांज़ेक्शन"
+}
 
-    if tts_agent == "vaanya":
-        if word.lower() in ENG_SPELL_MAP_VAANYA.keys():
-            key = re.compile(r"\s+").sub(" ", word).strip()
-            return ENG_SPELL_MAP_VAANYA[key.lower()]
+def alter_spelling(word, tts_agent):
+    key = re.compile(r"\s+").sub(" ", word).strip()
+    if key.lower() in ENG_SPELL_MAP_VAANYA.keys():
+        return ENG_SPELL_MAP_VAANYA[key.lower()]
+    return word
+
+def replace_word(word):
+    key = re.compile(r"\s+").sub(" ", word).strip()
+    if key.lower() in AYUSHI_WORD_MAPPING.keys():    
+        return AYUSHI_WORD_MAPPING[key.lower()]
+
     return word

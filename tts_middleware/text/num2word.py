@@ -4,6 +4,7 @@ from itertools import repeat
 
 from google.transliteration import transliterate_text
 from tts_middleware.text.num_to_words.num_to_word import num_to_word
+from tts_middleware.text.alter_word import replace_word
 
 
 MONTH_MAPPING = {1: 'जनवरी', 2: 'फरवरी', 3: 'मार्च', 4: 'अप्रैल', 5: 'मई',
@@ -44,16 +45,22 @@ def parse_date(word, language_code):
 def process(word, language_code, transliterate):
     final_word = word
     reg_date = re.compile(r'\d{4}-\d{2}-\d{2}')
-    if transliterate:
-        reg_caps = re.compile(r'[A-Z]*\b')
-        reg_roman_char = re.compile(r'[a-zA-Z]+')
-        if re.match(reg_caps, word) is not None and re.match(reg_caps, word).group():
-            # print(word)
+    reg_caps = re.compile(r'[A-Z]*\b')
+    reg_roman_char = re.compile(r'[a-zA-Z]+')
+    
+    if re.match(reg_caps, word) is not None and re.match(reg_caps, word).group():
+        
+        if transliterate:
             transliterated_char = [CHAR_ENG_TO_HIN_MAP[item] for item in list(word.lower())]
             final_word = " ".join(transliterated_char).strip()
+        else:
+            final_word = replace_word(word)
 
-        elif reg_roman_char.match(word) is not None and reg_roman_char.match(word).group():
+    elif reg_roman_char.match(word) is not None and reg_roman_char.match(word).group():
+        if transliterate:
             final_word = transliterate_text(word, language_code)
+        else:
+            final_word = replace_word(word)
 
     # date parser
     if re.match(reg_date, word) is not None and re.match(reg_date,word).group():

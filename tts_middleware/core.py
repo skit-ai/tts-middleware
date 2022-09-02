@@ -18,7 +18,7 @@ def tts_middleware(tts_function):
     """
 
     @wraps(tts_function)
-    def _tts(text: str, language_code: str, tts_agent: str, transliterate: bool=False) -> Audio:
+    def _tts(text: str, language_code: str, transliterate: bool=False,  tts_agent: str=None) -> Audio:
         node = pq(text)
         text = node.text()
 
