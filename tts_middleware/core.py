@@ -18,12 +18,12 @@ def tts_middleware(tts_function):
     """
 
     @wraps(tts_function)
-    def _tts(text: str, language_code: str, transliterate: bool=False,  tts_agent: str=None) -> Audio:
+    def _tts(text: str, language_code: str, transliterate: bool=False) -> Audio:
         node = pq(text)
         text = node.text()
 
         # Text preprocessing
-        text = preprocess_text(text, transliterate=transliterate, language_code=language_code, tts_agent=tts_agent)
+        text = preprocess_text(text, transliterate=transliterate, language_code=language_code)
 
         audio, sr = tts_function(
             text,

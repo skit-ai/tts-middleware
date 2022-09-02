@@ -27,7 +27,7 @@ AYUSHI_WORD_MAPPING = {"pos" : "पी ओ एस",
     "transaction" : "ट्रांज़ेक्शन"
 }
 
-def alter_spelling(word, tts_agent):
+def alter_spelling(word):
     key = re.compile(r"\s+").sub(" ", word).strip()
     if key.lower() in ENG_SPELL_MAP_VAANYA.keys():
         return ENG_SPELL_MAP_VAANYA[key.lower()]

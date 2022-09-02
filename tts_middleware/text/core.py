@@ -10,7 +10,7 @@ from tts_middleware.text.alter_word import alter_spelling
 def preprocess_text(text, **kwargs):
     transliterate = kwargs["transliterate"]
     language_code = kwargs["language_code"]
-    tts_agent = kwargs["tts_agent"]
+
     final_text = text
     sub_sent = re.sub(r',', " , ", text)
     
@@ -34,7 +34,7 @@ def preprocess_text(text, **kwargs):
         sub_sent = re.sub(r'\.', " . ", sub_sent)
 
         with ThreadPoolExecutor(max_workers=8) as executor:
-            inter_text = list(executor.map(alter_spelling, sub_sent.split(" "), repeat(tts_agent)))   
+            inter_text = list(executor.map(alter_spelling, sub_sent.split(" ")))   
         final_text = " ".join(inter_text).strip()
 
     else:
@@ -44,5 +44,5 @@ def preprocess_text(text, **kwargs):
 
     return final_text
 
-# print(preprocess_text("Dear customer, to activate the 3D secure services on your card, please send the message 3 D S, P C followed by the last 4 digits of your prepaid card, to 9 2 1 5 6 7 6 7 6 6 from your registered mobile number. Do you want me to repeat?.", transliterate=False, language_code="en", tts_agent = "vaanya"))
-# print(preprocess_text("समझ गई। आपकी check in date 2022-09-10. कर दी गई है। क्या आप कोई और ATM detail और बदलना चाहते हैं ?", transliterate=False, language_code="hi", tts_agent="ayushi"))
+# print(preprocess_text("Dear customer, to activate the 3D secure services on your card, please send the message 3 D S, P C followed by the last 4 digits of your prepaid card, to 9 2 1 5 6 7 6 7 6 6 from your registered mobile number. Do you want me to repeat?.", transliterate=False, language_code="en"))
+# print(preprocess_text("समझ गई। आपकी check in date 2022-09-10. कर दी गई है। क्या आप कोई और ATM detail और बदलना चाहते हैं ?", transliterate=True, language_code="hi"))
