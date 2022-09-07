@@ -53,14 +53,10 @@ def process(word, language_code, transliterate):
         if transliterate:
             transliterated_char = [CHAR_ENG_TO_HIN_MAP[item] for item in list(word.lower())]
             final_word = " ".join(transliterated_char).strip()
-        else:
-            final_word = replace_word(word)
 
     elif reg_roman_char.match(word) is not None and reg_roman_char.match(word).group():
         if transliterate:
-            final_word = transliterate_text(word, language_code)
-        else:
-            final_word = replace_word(word)
+            final_word = transliterate_text(word, language_code)            
 
     # date parser
     if re.match(reg_date, word) is not None and re.match(reg_date,word).group():
@@ -87,6 +83,7 @@ def process(word, language_code, transliterate):
                 num2word_equ += f'{word.strip()[:-1]} प्रतिशत '
         
         final_word = num2word_equ
+    final_word = replace_word(final_word)
     return final_word
 
 # print(preprocess_text("समझ गई। आपकी check in date 2022-09-10. कर दी गई है। क्या आप कोई और detail और बदलना चाहते हैं ?", transliterate=True, language_code="hi"))
