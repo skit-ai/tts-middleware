@@ -3,7 +3,7 @@
 import re
 
 ENG_SPELL_MAP_VAANYA = {"query": "qvery",
-    "ivr" : "eye we are",
+    "ivr" : "eye vee are",
     "atm" : "eighty am",
     "pos" : "peeoo ess",
     "e-commerce" : "ee commerce",
@@ -16,7 +16,7 @@ ENG_SPELL_MAP_VAANYA = {"query": "qvery",
     "p" : "pee",
     "c" : "see",
     "d" : "dee",
-    "sms": "ess am ess",
+    "sms": "ess em ess",
     "sbi": "ess be eye"
     }
 
