@@ -17,7 +17,8 @@ ENG_SPELL_MAP_VAANYA = {"query": "qvery",
     "c" : "see",
     "d" : "dee",
     "sms": "ess em ess",
-    "sbi": "ess be eye"
+    "sbi": "ess be eye",
+    "sbi's": "ess be eye's"
     }
 
 AYUSHI_WORD_MAPPING = {"pos" : "पी ओ एस",

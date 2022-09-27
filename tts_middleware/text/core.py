@@ -44,5 +44,5 @@ def preprocess_text(text, **kwargs):
 
     return final_text
 
-# print(preprocess_text("Dear customer, to activate the 3D secure services on your card, please send the message 3 D S, P C followed by the last 4 digits of your prepaid card, to 9 2 1 5 6 7 6 7 6 6 from your registered mobile number. Do you want me to repeat?.", transliterate=False, language_code="en"))
+# print(preprocess_text("Dear customer, SBI's to activate the 3D secure services on your card, please send the message 3 D S, P C followed by the last 4 digits of your prepaid card, to 9 2 1 5 6 7 6 7 6 6 from your registered mobile number. Do you want me to repeat?.", transliterate=False, language_code="en"))
 # print(preprocess_text("समझ गई। आपकी check in date 2022-09-10. कर दी गई है। क्या आप कोई और ATM detail और बदलना चाहते हैं ?", transliterate=True, language_code="hi"))
