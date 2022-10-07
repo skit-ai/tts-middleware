@@ -9,6 +9,7 @@ python = "^3.7"
 sox = "^1.4.1"
 pyquery = "^1.4.3"
 google-transliteration-api = "1.0.3"
+pydub = "^0.25.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
