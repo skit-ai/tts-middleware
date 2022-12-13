@@ -21,7 +21,7 @@ def tts_middleware(tts_function):
     """
 
     @wraps(tts_function)
-    def _tts(text: str, language_code: str, transliterate: bool=False) -> Audio:
+    def _tts(text: str, language_code: str, transliterate: bool=False, do_parallel_stitch: bool=False) -> Audio:
         node = pq(text)
         text = node.text()
 
@@ -29,7 +29,7 @@ def tts_middleware(tts_function):
         text = preprocess_text(text, transliterate=transliterate, language_code=language_code)
 
         # Speech synthesis
-        if language_code in ["hi"]:
+        if do_parallel_stitch:
             audio, sr = parallel_stitch(
                 text,
                 language_code,
